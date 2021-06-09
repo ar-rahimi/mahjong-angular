@@ -1,0 +1,43 @@
+<app-navbar></app-navbar>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-6">
+
+      <div class="panel panel-default">
+        <div class="panel-heading">Choose your theme</div>
+
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-md-5 col-sm-5">
+              <h5>Wooden</h5>
+              <img height="39" width="31" src="/src/assets/tiles/wooden/bamboo/8.gif">
+              <img height="39" width="31" src="/src/assets/tiles/wooden/character/2.gif">
+              <img height="39" width="31" src="/src/assets/tiles/wooden/circle/5.gif">
+              <img height="39" width="31" src="/src/assets/tiles/wooden/dragon/red.gif">
+              <img height="39" width="31" src="/src/assets/tiles/wooden/flower/bamboo.gif">
+            </div>
+            <div class="col-md-2 col-sm-2 text-center">
+              <label class="switch">
+                <input type="checkbox" (change)="setTheme($event)" [checked]="isShiny()">
+                <div class="slider round"></div>
+              </label>
+            </div>
+            <div class="col-md-5 col-sm-5">
+              <div class="pull-right"><h5>Shiny</h5>
+                <img height="39" width="31" src="/src/assets/tiles/shiny/flower/bamboo.gif">
+                <img height="39" width="31" src="/src/assets/tiles/shiny/dragon/red.gif">
+                <img height="39" width="31" src="/src/assets/tiles/shiny/character/2.gif">
+                <img height="39" width="31" src="/src/assets/tiles/shiny/circle/5.gif">
+                <img height="39" width="31" src="/src/assets/tiles/shiny/bamboo/8.gif">
+              </div>
+
+            </div>
+          </div>
+        </div> <!-- / .panel-body -->
+
+      </div> <!-- / .panel -->
+
+    </div>
+  </div>
+</div>

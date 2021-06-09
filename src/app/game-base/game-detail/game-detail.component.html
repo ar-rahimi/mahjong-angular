@@ -1,0 +1,94 @@
+<div class="panel panel-default">
+  <div class="panel-heading">Game detail's
+    <div class="pull-right" *ngIf="gameInput && gameInput.isOpen()">
+      <a *ngIf="joinable()" (click)="joinGame()" class="btn btn-primary btn-xs">Join Game</a>
+      <a *ngIf="leavable()" (click)="leaveGame()" class="btn btn-warning btn-xs">Leave Game</a>
+      <a *ngIf="startable()" (click)="startGame()" class="btn btn-success btn-xs">Start game</a>
+      <a *ngIf="removeable()" (click)="removeGame()" class="btn btn-danger btn-xs">Remove game</a>
+    </div>
+
+    <div class="pull-right" *ngIf="gameInput && gameInput.isPlaying()">
+      <a routerLink="/games/{{gameInput._id}}/tiles" class="btn btn-info btn-xs">Show board</a>
+    </div>
+
+  </div> <!-- / .panel-heading -->
+
+  <div class="panel-body" *ngIf="gameInput">
+    <div class="row">
+
+      <div class="col-md-6">Created by</div>
+      <div class="col-md-6 font-italic">{{ gameInput.createdBy.name }}</div>
+
+      <div class="col-md-6">Game template</div>
+      <div class="col-md-6 font-italic">{{ gameInput.templateId }}</div>
+
+      <div class="col-md-6">Created on</div>
+      <div class="col-md-6 font-italic">{{ gameInput.createdOn | date: 'dd/MM/yyyy' }}</div>
+
+      <div class="col-md-6">State</div>
+      <div class="col-md-6 font-italic">{{ gameInput.state }}</div>
+
+      <div class="col-md-6 {{ gameInput.needMorePlayers() ? 'highlight-danger' : ''}}">Min players</div>
+      <div class="col-md-6 font-italic
+      {{ gameInput.needMorePlayers() ? 'highlight-danger' : ''}}">
+        {{gameInput.minPlayers}}
+      </div>
+
+      <div class="col-md-6 {{ gameInput.maxPlayersReached() ? 'highlight-danger' : ''}}">Max players</div>
+      <div class="col-md-6 font-italic {{ gameInput.maxPlayersReached() ? 'highlight-danger' : ''}}">
+        {{ gameInput.maxPlayers }}
+      </div>
+
+      <div
+        class="col-md-6 {{ gameInput.maxPlayersReached() || gameInput.needMorePlayers() ? 'highlight-danger' : ''}}">
+        Total players
+      </div>
+      <div
+        class="col-md-6 font-italic {{ gameInput.maxPlayersReached() || gameInput.needMorePlayers() ? 'highlight-danger' : ''}}">
+        {{ gameInput.players.length }}
+      </div>
+
+
+      <div class="col-md-6">Players in game</div>
+      <div class="col-md-6">
+        <div class="row">
+          <div class="col-md-12 font-italic" *ngFor="let player of gameInput.players">
+            <span class="{{player._id === currentUser.username ? 'highlight' : ''}}">{{ player.name }}</span>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="gameInput.needMorePlayers()" class="col-md-12 text-center" style="margin-top: 20px; font-weight: bold"
+           [ngPlural]="gameInput.playersNeeded()"
+      >
+        <ng-template ngPluralCase="=1">Need one more player.</ng-template>
+        <ng-template ngPluralCase="other">Need {{gameInput.playersNeeded()}} more players.</ng-template>
+      </div>
+
+      <div *ngIf="gameInput.maxPlayersReached() && gameInput.isOpen()"
+           class="col-md-12 text-center"
+           style="margin-top: 20px; font-weight: bold">
+        <div>Game is full.</div>
+      </div>
+
+      <div *ngIf="gameInput.hasEnoughPlayers() && gameInput.isFrom(currentUser) && gameInput.isOpen()"
+           class="col-md-12 text-center"
+           style="margin-top: 20px; font-weight: bold">
+        <div>You can start the game!</div>
+      </div>
+
+      <div *ngIf="gameInput.isPlaying()"
+           class="col-md-12 text-center"
+           style="margin-top: 20px; font-weight: bold">
+        <div>Game is playing, <a (click)="showBoard()" style="cursor: pointer;">check it</a>.</div>
+      </div>
+
+    </div> <!-- / .row -->
+  </div> <!-- / .panel-body -->
+
+  <div class="panel-body" *ngIf="!gameInput">
+    <div>Select a game to see the details!</div>
+  </div>
+
+
+</div> <!-- / .panel -->

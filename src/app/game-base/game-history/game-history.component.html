@@ -1,0 +1,59 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    Game history
+  </div>
+
+  <div class="panel-body" *ngIf="gameInput && tilesInput">
+    <div class="row">
+
+      <div class="col-md-12">
+        <div class="row">
+          <div class="col-md-6"><b>Players</b></div>
+          <div class="col-md-6">
+            <div class="row" *ngFor="let player of gameInput.players">
+              <div class="col-md-12 ">{{ player.name }}</div>
+            </div>
+          </div>
+
+          <div class="col-md-12">&nbsp;</div>
+
+          <div class="col-md-6"><b>Remaining combinaties</b></div>
+          <div class="col-md-6"> {{ remaining() }}</div>
+
+          <div class="col-md-6"><b>Total combined</b></div>
+          <div class="col-md-6"> {{ matched() }}</div>
+
+        </div>
+      </div>
+
+      <div class="col-md-12">&nbsp;</div>
+
+      <table class="table table-borderless" *ngIf="tilesInput">
+        <thead>
+        <tr>
+          <th></th>
+          <th>Suit - Name</th>
+          <th>Found by</th>
+          <th>Found on</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        <tr *ngFor="let tile of tilesInput | matched | foundOnDesc; let i = index">
+          <td><img src="{{ tile.getTileImage() }}" alt=""></td>
+          <td>{{ tile.suit }} - {{ tile.name }}</td>
+
+          <td *ngIf="i % 2 == 0">{{ tile.match.foundBy }}</td>
+          <td *ngIf="i % 2 !== 0"></td>
+
+          <td *ngIf="i % 2 == 0">{{ tile.match.foundOn | date:'medium' : '' }}</td>
+          <td *ngIf="i % 2 !== 0"></td>
+        </tr>
+
+        </tbody>
+      </table>
+
+    </div>
+  </div>
+
+</div>

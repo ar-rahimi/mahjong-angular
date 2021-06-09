@@ -1,0 +1,119 @@
+<app-navbar></app-navbar>
+
+<div class="container-fluid">
+
+  <div class="row">
+    <div class="col-md-8">
+      <div id="filter-panel" class="collapse filter-panel">
+
+        <!-- todo: to seperated filter component -->
+        <div class="panel panel-default">
+          <div class="panel-body form-inline">
+            <div class="form-group">
+              <label class="filter-col" style="margin-right:0;" for="pref-perpage">My games</label>
+              <input type="checkbox" class="custom-control-input" [(ngModel)]="filter.myGames" [value]="filter.myGames">
+            </div> <!-- form group [rows] -->
+
+            <div class="form-group">
+              <label class="filter-col" style="margin-right:0;">Game states</label>
+              <select class="form-control input-sm" [(ngModel)]="filter.state">
+                <option selected value>-- All --</option>
+                <option value="open">Open</option>
+                <option value="playing">Paying</option>
+                <option value="finished">Finished</option>
+              </select>
+            </div><!-- form group [search] -->
+
+            <div class="form-group">
+              <label class="filter-col" style="margin-right:0;">Game template</label>
+              <select class="form-control input-sm" [(ngModel)]="filter.gameTemplate">
+                <option selected value>-- All --</option>
+                <option *ngFor="let type of gameTemplates" value="{{type.id}}">{{ type.id }}</option>
+              </select>
+            </div><!-- form group [search] -->
+
+            <div class="form-group">
+              <label class="filter-col" style="margin-right:0;" for="pref-perpage">Per page</label>
+              <select id="pref-perpage" class="form-control input-sm" [(ngModel)]="filter.pageSize">
+                <option selected value="25">25</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+                <option value="250">250</option>
+                <option value="500">500</option>
+              </select>
+            </div> <!-- form group [rows] -->
+
+            <div class="form-group pull-right">
+              <a (click)="search()" class="btn btn-primary btn-sm filter-col">
+                <span *ngIf="!searching">
+                <i class="fa fa-search"></i>
+                Search
+                  </span>
+                <i *ngIf="searching" class="fa fa-circle-o-notch fa-spin fa-fw"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+  <div class="row">
+    <div class="col-md-8">
+
+      <div class="panel with-nav-tabs panel-default">
+        <a data-toggle="collapse" data-target="#filter-panel"
+           type="button" class="btn btn-primary btn-sm pull-right" style="margin: 8px;">
+          <span class="fa fa-cog"></span> Advanced Search
+        </a>
+
+        <div class="panel-heading">
+          <ul class="nav nav-tabs">
+            <li class="active"><a href="#all" data-toggle="tab" (click)="allGames()">All</a></li>
+            <li><a href="#mine" data-toggle="tab" (click)="onlyMyGames()">My Games</a></li>
+          </ul>
+        </div>
+
+        <div class="panel-body">
+          <div class="tab-content">
+            <div class="tab-pane fade in active" id="all">
+              <table class="table hand-on-hover">
+                <thead>
+                <tr>
+                  <th>Created by</th>
+                  <th>Template</th>
+                  <th>Players</th>
+                  <th>Min Players</th>
+                  <th>Max Players</th>
+                  <th>State</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let game of games"
+                    class="{{ game.state == 'open' ? 'success' : game.state == 'playing' ? 'warning' : 'danger' }}"
+                    (click)="selectGame(game)"
+                    (dblclick)="showBoard()"
+                >
+                  <td>{{ game.createdBy.name }}</td>
+                  <td>{{ game.templateId }}</td>
+                  <td>{{ game.totalPlayers }}</td>
+                  <td>{{ game.minPlayers }}</td>
+                  <td>{{ game.maxPlayers }}</td>
+                  <td>{{ game.state }}</td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <app-game-detail [gameInput]="selectedGame"></app-game-detail>
+    </div>
+
+  </div>
+</div>

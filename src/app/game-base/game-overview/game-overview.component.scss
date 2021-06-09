@@ -1,0 +1,91 @@
+$panel-base: #777;
+$panel-background: #eee;
+$panel-hover: #555;
+$panel-hover-background: #ddd;
+
+.hand-on-hover tr {
+  cursor: pointer;
+}
+
+.filter-col {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.mb-10 {
+  margin-bottom: 15px;
+}
+
+.panel.with-nav-tabs {
+  .panel-heading {
+    padding: 5px 5px 0 5px;
+  }
+  .nav-tabs {
+    border-bottom: none;
+  }
+  .nav-justified {
+    margin-bottom: -1px;
+  }
+}
+
+.with-nav-tabs {
+  &.panel-default .nav-tabs > {
+    li > a {
+      color: $panel-base;
+      &:hover, &:focus {
+        color: $panel-base;
+      }
+    }
+    .open > a {
+      color: $panel-base;
+      background-color: $panel-hover-background;
+      border-color: transparent;
+      &:hover, &:focus {
+        color: $panel-base;
+        background-color: $panel-hover-background;
+        border-color: transparent;
+      }
+    }
+    li {
+      > a {
+        &:hover, &:focus {
+          color: $panel-base;
+          background-color: $panel-hover-background;
+          border-color: transparent;
+        }
+      }
+      &.active > a {
+        color: $panel-hover;
+        background-color: $panel-background;
+        border-color: $panel-hover-background;
+        border-bottom-color: transparent;
+        &:hover, &:focus {
+          color: $panel-hover;
+          background-color: $panel-background;
+          border-color: $panel-hover-background;
+          border-bottom-color: transparent;
+        }
+      }
+      &.dropdown .dropdown-menu {
+        background-color: #f5f5f5;
+        border-color: $panel-hover-background;
+        > {
+          li > a {
+            color: $panel-base;
+            &:hover, &:focus {
+              background-color: $panel-hover-background;
+            }
+          }
+          .active > a {
+            color: $panel-background;
+            background-color: $panel-hover;
+            &:hover, &:focus {
+              color: $panel-background;
+              background-color: $panel-hover;
+            }
+          }
+        }
+      }
+    }
+  }
+}

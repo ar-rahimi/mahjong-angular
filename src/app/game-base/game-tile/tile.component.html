@@ -1,0 +1,41 @@
+<div *ngIf="tile.visible" class="tile">
+  <!--empty tile-->
+  <div [ngStyle]="{
+  'top': (350 - (tile.zPos * 7)) - (((tile.yPos - 1) * 19))+'px',
+  'left': 100 + ((tile.xPos * 16) + tile.zPos * 5)+'px',
+  'z-index' : tile.getZIndex()
+  }"
+  >
+    <img src="{{ tile.getEmptyTileImage() }}" width="38" height="46">
+  </div>
+
+  <!-- tile image -->
+  <div [ngStyle]="{
+  'top': (351 - (tile.zPos * 7)) - (((tile.yPos - 1) * 19))+'px',
+  'left': 106 + ((tile.xPos * 16) + tile.zPos * 5)+'px',
+  'z-index' : tile.getZIndex()
+  }"
+  >
+    <img src="{{ tile.getTileImage() }}" width="31" height="39">
+  </div>
+
+
+  <!-- tile overlay (when selected) -->
+  <div
+    *ngIf="tile.selected"
+    [ngStyle]="{
+  'top': (350 - (tile.zPos * 7)) - (((tile.yPos - 1) * 19))+'px',
+  'left': 100 + ((tile.xPos * 16) + tile.zPos * 5)+'px',
+  'z-index' : tile.getZIndex()
+  }"
+  >
+    <img src="{{ tile.getOverlayTileImage() }}" width="38" height="46">
+  </div>
+
+</div>
+
+<!--[ngStyle]="{-->
+<!--'top': (350 - (tile.zPos * 7)) - (((tile.yPos - 1) * 19))+'px',-->
+<!--'left': 100 + ((tile.xPos * 16) + tile.zPos * 5)+'px',-->
+<!--'z-index' : (tile.zPos*10000+tile.yPos*1000+(100/tile.xPos)*100)-->
+<!--}"-->

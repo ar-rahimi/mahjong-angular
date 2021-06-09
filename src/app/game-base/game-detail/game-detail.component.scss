@@ -1,0 +1,20 @@
+$highlight-success: green;
+$highlight-danger: red;
+
+.hand-on-hover {
+  cursor: pointer;
+}
+
+.font-italic {
+  font-style: italic;
+}
+
+.highlight {
+  font-weight: bold;
+  color: $highlight-success;
+}
+
+.highlight-danger {
+  color: $highlight-danger;
+  font-weight: bold;
+}

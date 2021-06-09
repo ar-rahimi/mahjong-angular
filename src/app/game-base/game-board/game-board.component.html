@@ -1,0 +1,79 @@
+<app-navbar></app-navbar>
+
+<div class="container-fluid">
+  <!--// TILES-->
+  <div class="row">
+    <div class="col-md-6">
+      <a routerLink="/overview" class="btn btn-default pull-left">Back</a>
+
+      <div *ngIf="canPlay()">
+        <div class="pull-left m-x-1" *ngIf="!botIsWorking && gameNotFinished()">
+
+          <button *ngIf="hintTiles.length === 0"
+                  (click)="showHint()"
+                  class="btn btn-primary">
+            Show hint
+          </button>
+
+          <button *ngIf="hintTiles.length  === 2"
+                  (click)="hideHint()"
+                  class="btn btn-primary">
+            Hide hint
+          </button>
+
+          <button *ngIf="hintTiles.length  === 2"
+                  (click)="matchHintedTiles()"
+                  class="btn btn-success"
+          >
+            Match tiles
+          </button>
+
+        </div> <!-- buttons-left -->
+
+
+        <div class="pull-right" *ngIf="gameNotFinished()">
+
+          <button *ngIf="botIsWorking"
+                  (click)="stopBot()"
+                  class="btn btn-warning"
+          ><i *ngIf="!game.isFinished()"
+              class="fa fa-circle-o-notch fa-spin fa-fw"
+              [ngStyle]="{'color': processing ? 'red' : 'green'}">
+          </i>
+
+            Bot, stop!
+          </button>
+
+          <button *ngIf="!botIsWorking"
+                  (click)="startBot()"
+                  class="btn btn-success"
+          ><i class="fa fa-circle-o-notch"></i>
+
+            Bot, do the work!
+          </button>
+
+        </div> <!-- buttons-right -->
+      </div>
+
+      <!-- TILES -->
+      <app-tile *ngFor="let tile of tiles"
+                [tile]="tile"
+                (click)="tileSelected(tile)"
+                class="{{ tile.selected ? 'selected' : ''}}"
+      ></app-tile>
+      <!-- / TILES -->
+
+
+      <div *ngIf="game && game.isFinished()" class="text-center">
+        <h1>Game is finished</h1>
+      </div>
+
+    </div>
+
+    <div class="col-md-6">
+      <app-game-history [gameInput]="game" [tilesInput]="tiles"></app-game-history>
+    </div>
+  </div>
+</div>
+
+
